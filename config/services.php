@@ -14,6 +14,12 @@ return [
     |
     */
 
+    'facebook' => [
+        'client_id' => '1906495096272373',
+        'client_secret' => '3c55fb653f07c3e5e1835e4ab1ef6ce2',
+        'redirect' => 'http://localhost:8080/twitter/public/callback',
+    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
