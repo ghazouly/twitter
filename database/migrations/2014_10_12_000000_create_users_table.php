@@ -16,9 +16,16 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('username')->unique();
+
+            //this field limits username with 20 characters only.
+            $table->string('username', 20)->unique();
+
             $table->string('email')->unique();
             $table->string('password');
+
+            //this field contains latest folowers count that user has.
+            $table->integer('followersCount')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });
