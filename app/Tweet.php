@@ -15,7 +15,7 @@ class Tweet extends Model
    * @var array
    */
   protected $fillable = [
-      'content'
+      'ownerUserId','content'
   ];
 
   //A one to many reltipnship between the tweet and user who owns it.

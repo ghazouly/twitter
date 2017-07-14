@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Tweet;
 use Illuminate\Http\Request;
+use Collective\Html\HtmlFacade as Html;
+use Collective\Html\FormFacade as Form;
+use Illuminate\Support\Facades\Input;
+use DB;
 
 class TweetController extends Controller
 {
@@ -14,7 +18,14 @@ class TweetController extends Controller
      */
     public function index()
     {
-        //
+      $tweets = DB::table('tweets')
+            ->join('users', 'ownerUserId', '=', 'users.id')
+            ->select('tweets.*', 'users.name', 'users.username')
+            ->latest()
+            ->get();
+
+      //$tweets = DB::table('tweets')->get();
+      return view('layouts.timelineTweets', compact('tweets'));
     }
 
     /**
@@ -24,7 +35,7 @@ class TweetController extends Controller
      */
     public function create()
     {
-        //
+      return view('layouts.postTweet');
     }
 
     /**
@@ -44,9 +55,12 @@ class TweetController extends Controller
      * @param  \App\Tweet  $tweet
      * @return \Illuminate\Http\Response
      */
-    public function show(Tweet $tweet)
+    public function show(Tweet $tweet, $id)
     {
-        //
+      $tweet = DB::table('tweets')
+        ->where('id',$id)
+        ->get();
+
     }
 
     /**

@@ -23,8 +23,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
 
-            //this field contains latest folowers count that user has.
+            //this field contains latest folowers & following count that user has.
             $table->integer('followersCount')->nullable();
+            $table->integer('followingCount')->nullable();
 
             $table->rememberToken();
             $table->timestamps();
