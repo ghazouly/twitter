@@ -13,9 +13,12 @@ class UserProfileController extends Controller
 
         $users = DB::table('users')->select('users.*')->latest()->get();
         foreach ($users as $user) {
+
+          // for getting latest counts
           $user->followersCount = User::where('id',$user->id)->with('userFollowers')->first()->userFollowers->count();
           $user->followingCount = User::where('id',$user->id)->with('userFollowings')->first()->userFollowings->count();
           $user->tweetsCount = User::where('id',$user->id)->with('tweet')->first()->tweet->count();
+
         }
     return view('layouts.user.index', compact('users'));
     }

@@ -19,7 +19,23 @@
                       {{ $tweet->content }}
                     </p></blockquote>
                     <b>Likes:</b> {{ $tweet->likesCount }}  &nbsp; &nbsp; &nbsp; &nbsp; <b>Published at:</b> {{$tweet->created_at}}
-                    <hr>
+                    @if (Auth::id() == $tweet->ownerUserId)
+                      <div class="form-group">
+                      <!-- delete the tweet -->
+                      {!! Html::ul($errors->all()) !!}
+                      {!! Form::open(
+                              [ 'route' => ['tweet.destroy', $tweet->id],
+                                'method' => 'get' ]
+                                ) !!}
+                      <div class="form-group">
+                          {{ Form::hidden('_method', 'DELETE') }}
+                          {{ Form::submit('Delete?', array('class' => 'btn btn-warning')) }}
+                      </div>
+                      {{ Form::close() }}
+                      </div>
+                    @endif
+                  <hr>
+                  @endforeach
               </div>
           </div>
       </div>

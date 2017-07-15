@@ -30,14 +30,15 @@ Route::get('/callback', [
 ]);
 
 // Tweet posting & Timeline
-Route::resource('/home/tweet/', 'TweetController');
-Route::get('/home/tweet/{id}', 'TweetController@show');
+Route::get('/home/tweet/', 'TweetController@index');
+Route::get('/home/tweet/{id}', 'TweetController@show')->name('tweet.show');
+Route::get('/home/tweet/{id}', 'TweetController@destroy')->name('tweet.destroy');
 
 // Users index and profiles
 Route::get('/home/user/', 'UserProfileController@getAll');
 // User search request "by username"
 Route::get('/home/user/search', 'UserProfileController@search');
-Route::get('/home/user/{username}', 'UserProfileController@getOne');
+Route::get('/home/user/{username}', 'UserProfileController@getOne')->name('user.show');
 
 // Follow & Unfollow Actions
 Route::group(['middleware' => 'auth'], function () {

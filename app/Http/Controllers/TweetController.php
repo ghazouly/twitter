@@ -8,6 +8,8 @@ use Collective\Html\HtmlFacade as Html;
 use Collective\Html\FormFacade as Form;
 use Illuminate\Support\Facades\Input;
 use DB;
+use Auth;
+use Session;
 
 class TweetController extends Controller
 {
@@ -33,9 +35,9 @@ class TweetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, Tweet $tweet)
     {
-      return view('layouts.postTweet');
+      return view('layouts.tweet.index');
     }
 
     /**
@@ -46,7 +48,21 @@ class TweetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+      $this->validate(request(), [
+        'content' => 'required|max:140'
+      ]);
+
+      $tweet = new Tweet;
+
+      if ($request->has('content')) {
+          $tweet->content = $request->input('content');
+          $tweet->ownerUserId = Auth::id();
+      }
+      $tweet->save();
+      return redirect('/home/tweet');
+
+
     }
 
     /**
@@ -115,8 +131,12 @@ return view('layouts.tweet.show', compact('tweet', 'user'));
      * @param  \App\Tweet  $tweet
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tweet $tweet)
+    public function destroy($id)
     {
-        //
+        $tweet = Tweet::find($id);
+        $tweet->delete();
+
+        Session::flash('message', 'tweet deleted successfully');
+        return redirect()->back();
     }
 }

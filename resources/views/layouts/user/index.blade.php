@@ -38,6 +38,7 @@
                       <b>Followers:</b> {{ $user->followersCount }}
                       <hr>
                     @endforeach
+                  
               </div>
           </div>
       </div>
