@@ -4,9 +4,22 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
 
 class User extends Authenticatable
 {
+    use AlgoliaEloquentTrait;
+
+    public $algoliaSettings = [
+        'searchableAttributes' => [
+            'username',
+        ]
+    ];
+
+    //User::reindex();
+    //User::useSettings();
+
     use Notifiable;
     protected $table = 'users';
 
@@ -57,6 +70,5 @@ class User extends Authenticatable
     public function tweetMention(){
       return $this->belongsTo('App\TweetMention', 'mentionedUserId');
     }
-
 
 }

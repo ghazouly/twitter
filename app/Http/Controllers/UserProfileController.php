@@ -51,14 +51,19 @@ class UserProfileController extends Controller
                                        ]);
     }
 
-  public function search(Request $request, User $user){
+  public function search(Request $request, User $users){
+    //Algolia
+    //$username = $request->input('username');
+    //$users = User::search('$username');
 
       // Search for a user based on their name.
       if ($request->has('username')) {
           $username = $request->input('username');
           $users = DB::table('users')->where('username','LIKE', "%$username%" )->get();
-          return view('layouts.user.search', compact('users'));
       }
+
+      return view('layouts.user.search', compact('users'));
+
   }
 
 }

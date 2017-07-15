@@ -40,8 +40,8 @@ return [
     'connections' => [
 
         'main' => [
-            'id' => 'your-application-id',
-            'key' => 'your-api-key',
+            'id' => 'L0K86SMMEZ',
+            'key' => '07c754440550dd64f5d50408acd54517',
         ],
 
         'alternative' => [
