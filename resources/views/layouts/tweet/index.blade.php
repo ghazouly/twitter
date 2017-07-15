@@ -10,19 +10,22 @@
               </div>
               <div class="panel-body">
                     @foreach($tweets as $tweet)
-                      <h4><?php
+
+                    <h4><?php
                         //get username beginning with '@'.
                         $username = '@'.$tweet->username;
                       ?>
                       <b>{{ $tweet->name }}</b> (<a href="{{ URL::to('home/user/'.$tweet->username) }}">{{ $username }}</a>) <br>
                     </h4>
-                    <a href="{{ URL::to('home/tweet/'.$tweet->id) }}">
                     <blockquote><p>
                       {{ $tweet->content }}
                     </p></blockquote>
+                    <b>Likes:</b> {{ $tweet->likesCount }}  &nbsp; &nbsp; &nbsp; &nbsp; <b>Published at:</b>
+                    <a href="{{ URL::to('home/tweet/'.$tweet->id) }}">
+                     {{$tweet->created_at}}
                     </a>
-                    <b>Likes:</b> {{ $tweet->likesCount }}  &nbsp; &nbsp; &nbsp; &nbsp; <b>Published at:</b> {{$tweet->created_at}}
                     <hr>
+
                     @endforeach
               </div>
           </div>

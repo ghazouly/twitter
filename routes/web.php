@@ -35,6 +35,8 @@ Route::get('/home/tweet/{id}', 'TweetController@show');
 
 // Users index and profiles
 Route::get('/home/user/', 'UserProfileController@getAll');
+// User search request "by username"
+Route::get('/home/user/search', 'UserProfileController@search');
 Route::get('/home/user/{username}', 'UserProfileController@getOne');
 
 // Follow & Unfollow Actions

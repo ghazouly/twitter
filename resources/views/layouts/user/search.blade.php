@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -9,17 +8,7 @@
               <div class="panel-heading">
                 <div class="row">
                     <div class="col-md-4">
-                      <h3>Registered Users:</h3>
-                    </div>
-                    <div class="col-md-6 col-md-offset-2"><br>
-                      <!-- if there are creation errors, they will show here -->
-                      {!! Html::ul($errors->all()) !!}
-                      {!! Form::open(array('method' => 'GET','url' => '/home/user/search')) !!}
-                          <div class="form-group">
-                              {!! Form::text('username') !!}
-                              {!! Form::submit('Search!', array('class' => 'btn btn-success')) !!}
-                          </div>
-                      {!! Form::close() !!}
+                      <h3>Search Results:</h3>
                     </div>
                 </div>
               </div>

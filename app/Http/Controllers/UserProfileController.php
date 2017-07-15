@@ -20,41 +20,6 @@ class UserProfileController extends Controller
     return view('layouts.user.index', compact('users'));
     }
 
-/***
-          foreach ($users as $user) {
-
-            $user->followersCount = $users->where('users.id', '=','user_follows.followedId')
-                                    ->get()
-                                    ->count();
-          }
-          $user->followingCount = DB::select(
-                                  DB::raw("SELECT COUNT(user_follows.followerId)
-                                  FROM user_follows, users
-                                  WHERE user_follows.followerId = users.id"));
-
-      $users = DB::table('users')
-      ->join('user_follows', 'followedId','=', 'users.id')
-      ->select('user_follows.followedId', DB::raw('COUNT(*) as users.followersCount'))
-      ->get();
-
-      $users = DB::table('users')
-      ->join('user_follows')
-      ->select('users.*', 'user_follows.followedId', 'user_follows.followerId')
-      ->get();
-
-      DB::table('users')
-          ->join('user_follows', 'followedId', 'followingId')
-          ->select('*', DB::raw('COUNT(*) as review_count'))
-          ->groupBy('user_id')
-          ->having('review_count', '>' , 10)
-          ->get();
-          DB::table('users')
-          ->join('user_follows', 'followedId', 'followingId')
-          ->insert(DB::raw('users.followingCount := followingCount + x as users.followingCount'))
-          ->get();
-
-*/
-
     public function getOne($username){
 
       $user = User::where('username',$username)->firstOrFail();
@@ -81,6 +46,16 @@ class UserProfileController extends Controller
                                         'is_edit_profile' => $is_edit_profile,
                                         'is_follow_button' => $is_follow_button
                                        ]);
-
     }
+
+  public function search(Request $request, User $user){
+
+      // Search for a user based on their name.
+      if ($request->has('username')) {
+          $username = $request->input('username');
+          $users = DB::table('users')->where('username','LIKE', "%$username%" )->get();
+          return view('layouts.user.search', compact('users'));
+      }
+  }
+
 }
