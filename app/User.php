@@ -30,15 +30,27 @@ class User extends Authenticatable
 
     //A one to many reltipnship between the tweet and its owner.
     public function tweet(){
-      return $this->hasMany('App\Tweet', 'ownerUserId');
+      return $this->hasMany('App\Tweet', 'ownerUserId','id');
     }
 
+    public function following()
+    {
+        return $this->belongsToMany('App\User', 'user_follows', 'followerId', 'followedId')->withTimestamps();
+    }
+
+    public function isFollowing(User $user)
+    {
+        return !is_null($this->following()->where('followedId', $user->id)->first());
+    }
     /**
     * A one to many reltipnship between the user and its follow action,
     * whether to follow another one or to be followed.
     */
-    public function userFollow(){
-      return $this->hasMany('App\UserFollow', 'followerId', 'followedId');
+    public function userFollowings(){
+      return $this->hasMany('App\UserFollow', 'followerId', 'id');
+    }
+    public function userFollowers(){
+      return $this->hasMany('App\UserFollow', 'followedId', 'id');
     }
 
     //A one to many reltipnship between the tweet and user(s) mentioned within it.

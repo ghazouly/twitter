@@ -19,8 +19,10 @@
                       <b>{{ $user->name }}</b>
                       (<a href="{{ URL::to('home/user/'.$user->username) }}">{{ $username }}</a>)
                       </h4>
-                      Following: {{ $user->followingCount }} &nbsp; &nbsp; &nbsp; &nbsp;
-                      Followers: {{ $user->followersCount }} <hr>
+                      <b>Tweets:</b> {{ $user->tweetsCount }} &nbsp; &nbsp; &nbsp; &nbsp;
+                      <b>Following:</b> {{ $user->followingCount }} &nbsp; &nbsp; &nbsp; &nbsp;
+                      <b>Followers:</b> {{ $user->followersCount }}
+                      <hr>
                     @endforeach
               </div>
           </div>

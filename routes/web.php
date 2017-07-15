@@ -33,6 +33,12 @@ Route::get('/callback', [
 Route::resource('/home/tweet/', 'TweetController');
 Route::get('/home/tweet/{id}', 'TweetController@show');
 
-//
+// Users index and profiles
 Route::get('/home/user/', 'UserProfileController@getAll');
 Route::get('/home/user/{username}', 'UserProfileController@getOne');
+
+// Follow & Unfollow Actions
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/follows/{username}', 'UserFollowController@follows');
+    Route::get('/unfollows/{username}', 'UserFollowController@unfollows');
+});

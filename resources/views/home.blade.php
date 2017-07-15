@@ -11,7 +11,7 @@
                       //get username beginning with '@'.
                       $username = '@'.Auth::user()->username;
                     ?>
-                    Welcome <a href="#">{{$username}}</a>!
+                    Welcome <a href="{{ URL::to('home/user/'.Auth::user()->username) }}">{{$username}}</a>!
 
                 </div>
             </div>

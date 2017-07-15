@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             //this field contains latest folowers & following count that user has.
             $table->integer('followersCount')->nullable();
             $table->integer('followingCount')->nullable();
+            $table->integer('tweetsCount')->nullable();
 
             $table->rememberToken();
             $table->timestamps();
