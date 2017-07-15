@@ -31,7 +31,8 @@ Route::get('/callback', [
 
 // Tweet posting & Timeline
 Route::resource('/home/tweet/', 'TweetController');
+Route::get('/home/tweet/{id}', 'TweetController@show');
 
 //
 Route::get('/home/user/', 'UserProfileController@getAll');
-Route::get('/home/user/{id}', 'UserProfileController@getOne');
+Route::get('/home/user/{username}', 'UserProfileController@getOne');

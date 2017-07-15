@@ -7,7 +7,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
               <div class="panel-heading">
-                  Users Index:
+                  <h3>Registered Users:</h3>
               </div>
               <div class="panel-body">
                     @foreach($users as $user)
@@ -15,7 +15,10 @@
                         //get username beginning with '@'.
                         $username = '@'.$user->username;
                       ?>
-                      <b>{{ $user->name }}</b> (<a href="">{{ $username }}</a>) &nbsp; &nbsp; &nbsp; &nbsp;
+                      <h4>
+                      <b>{{ $user->name }}</b>
+                      (<a href="{{ URL::to('home/user/'.$user->username) }}">{{ $username }}</a>)
+                      </h4>
                       Following: {{ $user->followingCount }} &nbsp; &nbsp; &nbsp; &nbsp;
                       Followers: {{ $user->followersCount }} <hr>
                     @endforeach

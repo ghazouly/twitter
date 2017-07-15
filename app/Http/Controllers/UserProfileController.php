@@ -12,7 +12,7 @@ class UserProfileController extends Controller
 
         $users = DB::table('users')->select('users.*')->latest()->get();
 
-    return view('layouts.usersIndex', compact('users'));
+    return view('layouts.user.index', compact('users'));
     }
 
 /***
@@ -50,8 +50,21 @@ class UserProfileController extends Controller
 
 */
 
-    public function getOne($id){
+    public function getOne($username){
 
+      $userTemp = DB::table('users')
+      ->where('username',$username)
+      ->get();
+
+      $user = $userTemp[0];
+
+      $tweets = DB::table('tweets')
+            ->join('users', 'tweets.ownerUserId', '=', 'users.id')
+            ->select('tweets.*', 'users.name', 'users.username')
+            ->where('tweets.ownerUserId', '=', $user->id)
+            ->get();
+
+      return view('layouts.user.show', compact('user', 'tweets'));
 
     }
 

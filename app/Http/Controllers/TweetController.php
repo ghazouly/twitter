@@ -25,7 +25,7 @@ class TweetController extends Controller
             ->get();
 
       //$tweets = DB::table('tweets')->get();
-      return view('layouts.timelineTweets', compact('tweets'));
+      return view('layouts.tweet.index', compact('tweets'));
     }
 
     /**
@@ -57,11 +57,34 @@ class TweetController extends Controller
      */
     public function show(Tweet $tweet, $id)
     {
-      $tweet = DB::table('tweets')
-        ->where('id',$id)
-        ->get();
+
+      $tweetTemp = DB::table('tweets')
+            ->join('users', 'ownerUserId', '=', 'users.id')
+            ->select('tweets.*', 'users.name', 'users.username')
+            ->where('tweets.id',$id)
+            ->get();
+
+      $tweet = $tweetTemp[0];
+
+      return view('layouts.tweet.show', compact('tweet'));
 
     }
+/***
+$user = DB::table('users')
+      ->join('tweets', 'users.id', '=', 'tweets.ownerUserId')
+      ->select('users.*', 'tweets.ownerUserId')
+      ->where('users.id', '=', $tweet->ownerUserId)
+      ->get();
+
+return view('layouts.tweet.show', compact('tweet', 'user'));
+      $tweet = DB::table('tweets')
+        ->join('users', 'ownerUserId', '=', 'users.id')
+        ->select('tweets.*', 'users.name', 'users.username')
+        ->where('tweets.id',$id)
+        ->get();
+
+*/
+
 
     /**
      * Show the form for editing the specified resource.
