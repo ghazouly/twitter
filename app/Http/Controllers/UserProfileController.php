@@ -47,7 +47,7 @@ class UserProfileController extends Controller
                                         'user' => $user,
                                         'tweets' => $tweets,
                                         'is_edit_profile' => $is_edit_profile,
-                                        'is_follow_button' => $is_follow_button
+                                        'is_follow_button' => $is_follow_button,
                                        ]);
     }
 

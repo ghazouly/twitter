@@ -59,6 +59,23 @@
                         {{ Form::close() }}
                         </div>
                       @endif
+                      <br>
+                      @if (Auth::check())
+                          @if ($is_edit_tweet)
+                          <a href="#" class="navbar-btn navbar-right">
+                              <button type="button" class="btn btn-success">Edit Tweet</button>
+                          </a>
+                        @elseif ($is_like_button)
+                          <a href="{{ url('/likes/' . $tweet->id) }}" class="navbar-btn navbar-right">
+                              <button type="button" class="btn btn-primary">Like</button>
+                          </a>
+                          @else
+                          <a href="{{ url('/unlikes/' . $tweet->id) }}" class="navbar-btn navbar-right">
+                              <button type="button" class="btn btn-danger">Unlike</button>
+                          </a>
+                          @endif
+                      @endif
+                      <br>
                     <hr>
                     @endforeach
               </div>

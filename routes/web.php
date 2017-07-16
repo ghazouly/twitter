@@ -40,8 +40,14 @@ Route::get('/home/user/', 'UserProfileController@getAll');
 Route::get('/home/user/search', 'UserProfileController@search');
 Route::get('/home/user/{username}', 'UserProfileController@getOne')->name('user.show');
 
-// Follow & Unfollow Actions
+// Users' Follow & Unfollow Actions
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/follows/{username}', 'UserFollowController@follows');
     Route::get('/unfollows/{username}', 'UserFollowController@unfollows');
+});
+
+// Tweets Like & Unlike Actions
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/likes/{id}', 'UserLikeController@likes');
+    Route::get('/unlikes/{id}', 'UserLikeController@unlikes');
 });
