@@ -31,11 +31,13 @@ Route::get('/callback', [
 
 // Tweet posting & Timeline
 Route::get('/home/tweet/', 'TweetController@index');
+Route::post('/home/tweet/', 'TweetController@store')->name('tweet.store');
 Route::get('/home/tweet/{id}', 'TweetController@show')->name('tweet.show');
 Route::get('/home/tweet/{id}', 'TweetController@destroy')->name('tweet.destroy');
 
 // Users index and profiles
 Route::get('/home/user/', 'UserProfileController@getAll');
+
 // User search request "by username"
 Route::get('/home/user/search', 'UserProfileController@search');
 Route::get('/home/user/{username}', 'UserProfileController@getOne')->name('user.show');

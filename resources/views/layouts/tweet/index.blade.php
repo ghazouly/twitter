@@ -12,7 +12,7 @@
               <div class="form-group">
               <!-- if there are creation errors, they will show here -->
               {!! Html::ul($errors->all()) !!}
-              {!! Form::open(array('url' => '/home/tweet')) !!}
+              {!! Form::open(['route' => 'tweet.store']) !!}
                   <div class="form-group">
                       {!! Form::textarea('content') !!}
                       {!! Form::submit('Tweet!', array('class' => 'btn btn-primary')) !!}
