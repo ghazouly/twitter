@@ -25,20 +25,9 @@ class TweetController extends Controller
             ->select('tweets.*', 'users.name', 'users.username')
             ->latest()
             ->get();
-            foreach ($tweets as $tweet) {
-              $tweet = Tweet::where('id',$tweet->id)->firstOrFail();
-              // for liking actions
-              $me = Auth::user();
-              $is_edit_tweet = (Auth::id() == $tweet->ownerUserId);
-              $is_like_button = !$is_edit_tweet && !$me->isLiking($tweet);
-
-            }
-      //$tweets = DB::table('tweets')->get();
 
       return view('layouts.tweet.index', [
                                         'tweets' => $tweets,
-                                        'is_edit_tweet' => $is_edit_tweet,
-                                        'is_like_button'=> $is_like_button,
                                        ]);
 
 
@@ -99,21 +88,6 @@ class TweetController extends Controller
       return view('layouts.tweet.show', compact('tweet'));
 
     }
-/***
-$user = DB::table('users')
-      ->join('tweets', 'users.id', '=', 'tweets.ownerUserId')
-      ->select('users.*', 'tweets.ownerUserId')
-      ->where('users.id', '=', $tweet->ownerUserId)
-      ->get();
-
-return view('layouts.tweet.show', compact('tweet', 'user'));
-      $tweet = DB::table('tweets')
-        ->join('users', 'ownerUserId', '=', 'users.id')
-        ->select('tweets.*', 'users.name', 'users.username')
-        ->where('tweets.id',$id)
-        ->get();
-
-*/
 
 
     /**

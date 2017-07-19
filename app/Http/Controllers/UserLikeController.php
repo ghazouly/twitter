@@ -16,7 +16,7 @@ class UserLikeController extends Controller
     // Find logged in User
     $userId = Auth::id();
     $me = User::find($userId);
-    $me->userLikes()->attach($tweet->ownerUserId);
+    $me->userLikes()->attach($tweet->id);
     return redirect()->back();
 
   }
@@ -29,7 +29,7 @@ class UserLikeController extends Controller
     // Find logged in User
     $userId = Auth::id();
     $me = User::find($userId);
-    $me->userLikes()->detach($tweet->ownerUserId);
+    $me->userLikes()->detach($tweet->id);
     return redirect()->back();
 
   }
