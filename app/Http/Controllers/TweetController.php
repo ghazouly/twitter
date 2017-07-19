@@ -24,6 +24,8 @@ class TweetController extends Controller
       //get users' followers ids in an array to be used in tweets listing.
       $followersIds = UserFollow::where('followerId', Auth::id())->pluck('followedId')->toArray();
 
+
+      //list users' & whom follow tweets.
       $tweets = Tweet::with(['user','like'])
                 ->whereIn('ownerUserId', $followersIds)
                 ->orWhere('ownerUserId',Auth::id())

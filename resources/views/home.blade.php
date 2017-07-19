@@ -7,10 +7,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
 
-                    <?php
+                    @php
                       //get username beginning with '@'.
                       $username = '@'.Auth::user()->username;
-                    ?>
+                    @endphp
+
                     Welcome <a href="{{ URL::to('home/user/'.Auth::user()->username) }}">{{$username}}</a>!
 
                 </div>
