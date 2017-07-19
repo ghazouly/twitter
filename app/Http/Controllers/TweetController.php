@@ -20,17 +20,11 @@ class TweetController extends Controller
      */
     public function index()
     {
-      $tweets = DB::table('tweets')
-            ->join('users', 'ownerUserId', '=', 'users.id')
-            ->select('tweets.*', 'users.name', 'users.username')
-            ->latest()
-            ->get();
+      $tweets = Tweet::with(['user','like'])->get();
 
       return view('layouts.tweet.index', [
                                         'tweets' => $tweets,
                                        ]);
-
-
     }
 
     /**

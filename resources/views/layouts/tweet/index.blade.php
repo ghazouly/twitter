@@ -35,9 +35,9 @@
 
                     <h4><?php
                         //get username beginning with '@'.
-                        $username = '@'.$tweet->username;
+                        $username = '@'.$tweet->user->username;
                       ?>
-                      <b>{{ $tweet->name }}</b> (<a href="{{ URL::to('home/user/'.$tweet->username) }}">{{ $username }}</a>) <br>
+                      <b>{{ $tweet->user->name }}</b> (<a href="{{ URL::to('home/user/'.$tweet->user->username) }}">{{ $username }}</a>) <br>
                     </h4>
                     <blockquote><p>
                       {{ $tweet->content }}
@@ -59,27 +59,21 @@
                         {{ Form::close() }}
                         </div>
                       @endif
-                      <?php
-                        $tweet = App\Tweet::where('id',$tweet->id)->firstOrFail();
-                        $me = Auth::user();
-                        $is_edit_tweet = (Auth::id() == $tweet->ownerUserId);
-                        $is_like_button = !$is_edit_tweet && !$me->isLiking($tweet);
 
-                      ?>
-
-                      @if ($is_edit_tweet)
-                      <a href="#" class="navbar-btn">
+                      @if ($tweet->ownerUserId == Auth::id())
+                      <a href="#" class="navbar-btn navbar-right">
                           <button type="button" class="btn btn-success">Edit Tweet</button>
                       </a>
-                      @elseif ($is_like_button)
-                      <a href="{{ url('/likes/' . $tweet->id) }}" class="navbar-btn navbar-right">
-                          <button type="button" class="btn btn-primary">Like</button>
-                      </a>
-                      @else
+                      @elseif ($tweet->like->where('likerId',Auth::id())->count() > 0)
                       <a href="{{ url('/unlikes/' . $tweet->id) }}" class="navbar-btn navbar-right">
                           <button type="button" class="btn btn-danger">Unlike</button>
                       </a>
+                      @else
+                      <a href="{{ url('/likes/' . $tweet->id) }}" class="navbar-btn navbar-right">
+                          <button type="button" class="btn btn-primary">Like</button>
+                      </a>
                       @endif
+
                       <br>
                     <hr>
                     @endforeach
