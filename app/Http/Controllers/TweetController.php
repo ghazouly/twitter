@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Input;
 use DB;
 use Auth;
 use Session;
+use App\UserFollow;
 
 class TweetController extends Controller
 {
@@ -20,7 +21,13 @@ class TweetController extends Controller
      */
     public function index()
     {
-      $tweets = Tweet::with(['user','like'])->get();
+      //get users' followers ids in an array to be used in tweets listing.
+      $followersIds = UserFollow::where('followerId', Auth::id())->pluck('followedId')->toArray();
+
+      $tweets = Tweet::with(['user','like'])
+                ->whereIn('ownerUserId', $followersIds)
+                ->orWhere('ownerUserId',Auth::id())
+                ->get();
 
       return view('layouts.tweet.index', [
                                         'tweets' => $tweets,

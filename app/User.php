@@ -9,17 +9,18 @@ use AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
 
 class User extends Authenticatable
 {
+/***
     use AlgoliaEloquentTrait;
 
     public $algoliaSettings = [
         'searchableAttributes' => [
-            'username',
+        'username',
         ]
     ];
 
-    //User::reindex();
-    //User::useSettings();
-
+    User::reindex();
+    User::useSettings();
+*/
     use Notifiable;
     protected $table = 'users';
 

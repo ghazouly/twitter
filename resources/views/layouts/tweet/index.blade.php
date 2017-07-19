@@ -42,7 +42,7 @@
                     <blockquote><p>
                       {{ $tweet->content }}
                     </p></blockquote>
-                    <b>Likes:</b> {{ $tweet->likesCount }}  &nbsp; &nbsp; &nbsp; &nbsp; <b>Published at:</b>
+                    <b>Likes:</b> {{ $tweet->like->count() }}  &nbsp; &nbsp; &nbsp; &nbsp; <b>Published at:</b>
                      {{$tweet->created_at}}
                       @if (Auth::id() == $tweet->ownerUserId)
                         <div class="navbar-btn">
