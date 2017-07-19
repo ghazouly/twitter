@@ -77,19 +77,9 @@ class TweetController extends Controller
      * @param  \App\Tweet  $tweet
      * @return \Illuminate\Http\Response
      */
-    public function show(Tweet $tweet, $id)
+    public function show()
     {
-
-      $tweetTemp = DB::table('tweets')
-            ->join('users', 'ownerUserId', '=', 'users.id')
-            ->select('tweets.*', 'users.name', 'users.username')
-            ->where('tweets.id',$id)
-            ->get();
-
-      $tweet = $tweetTemp[0];
-
-      return view('layouts.tweet.show', compact('tweet'));
-
+      //
     }
 
 

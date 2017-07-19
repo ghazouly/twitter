@@ -32,7 +32,6 @@ Route::get('/callback', [
 // Tweet posting & Timeline
 Route::get('/home/tweet/', 'TweetController@index');
 Route::post('/home/tweet/', 'TweetController@store')->name('tweet.store');
-Route::get('/home/tweet/{id}', 'TweetController@show')->name('tweet.show');
 Route::get('/home/tweet/{id}', 'TweetController@destroy')->name('tweet.destroy');
 
 // Users index and profiles
